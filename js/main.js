@@ -15,14 +15,26 @@ form.addEventListener("submit", (evento) => {
     const nome = evento.target.elements['nome']
     const quantidade = evento.target.elements['quantidade']
 
+    //Vê se existe o nome do elemento que o usuário digitou
+    const existe = itens.find( elemento => elemento.nome === nome.value)
+    
     const itemAtual = {
         "nome": nome.value,
         "quantidade": quantidade.value
     }
 
-    criaElemento(itemAtual)
+    //Se "existe" existe
+    if(existe){
+        //Se existir um novo item
+        itemAtual.id = existe.id
+        atualizaElemento(itemAtual)
+    }else{
+        itemAtual.id = itens.length
 
-    itens.push(itemAtual)
+        criaElemento(itemAtual)
+
+        itens.push(itemAtual)
+    }
 
     localStorage.setItem("itens", JSON.stringify(itens))
 
@@ -41,6 +53,8 @@ function criaElemento(item) {
     const numeroItem = document.createElement('strong')
     //Adiciona o valor "quantidade"
     numeroItem.innerHTML = item.quantidade
+    //Adiciona um id ao elemento
+    numeroItem.dataset.id = item.id
     //Adiciona o "numeroItem" dentro do "novoItem"
     novoItem.appendChild(numeroItem)
     
@@ -48,6 +62,10 @@ function criaElemento(item) {
 
     //Adiciona no HTML
     lista.appendChild(novoItem)
-
 }
+
+function atualizaElemento(item){
+    document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
+
 
