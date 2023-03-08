@@ -32,10 +32,10 @@ form.addEventListener("submit", (evento) => {
         itemAtual.id = itens.length
 
         criaElemento(itemAtual)
-
+        //Coloca "itemAtual" dentro de "itens"
         itens.push(itemAtual)
     }
-
+    //Guarda no localStorage
     localStorage.setItem("itens", JSON.stringify(itens))
 
     nome.value = ""
@@ -43,19 +43,19 @@ form.addEventListener("submit", (evento) => {
 })
 
 function criaElemento(item) {
-    //<li class="item"><strong>7</strong>Camisas</li>
+    //objetivo -> <li class="item"><strong>7</strong>Camisas</li>
     //Cria a tag <li>
     const novoItem = document.createElement('li')
-    //Adiciona a classe "item" no <li>
+    //Adiciona a classe "item" no "novoItem" 
     novoItem.classList.add("item")
 
     //Cria a tag <strong>
     const numeroItem = document.createElement('strong')
-    //Adiciona o valor "quantidade"
+    //innerHTML adiciona o valor na tag -> <strong>7</strong>
     numeroItem.innerHTML = item.quantidade
     //Adiciona um id ao elemento
     numeroItem.dataset.id = item.id
-    //Adiciona o "numeroItem" dentro do "novoItem"
+    //Adiciona o numeroItem dentro de novoItem -> <li class="item"><strong>7</strong></li>
     novoItem.appendChild(numeroItem)
     
     novoItem.innerHTML += item.nome
