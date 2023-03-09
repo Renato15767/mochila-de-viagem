@@ -27,7 +27,10 @@ form.addEventListener("submit", (evento) => {
     if(existe){
         //Se existir um novo item
         itemAtual.id = existe.id
+
         atualizaElemento(itemAtual)
+        //Irá receber o valor atualizado do item recebido na posição certa
+        itens[existe.id] = itemAtual
     }else{
         itemAtual.id = itens.length
 
@@ -60,12 +63,23 @@ function criaElemento(item) {
     
     novoItem.innerHTML += item.nome
 
+    //Adiciona um botão em cada <li>
+    novoItem.appendChild(botaoDeleta())
+
     //Adiciona no HTML
     lista.appendChild(novoItem)
 }
 
 function atualizaElemento(item){
+    //Muda o valor da quantidade do item, caso ele ja existir
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
+
+function botaoDeleta(){
+    const elementoBotao = document.createElement("button")
+    elementoBotao.innerText = "X"
+
+    return elementoBotao
 }
 
 
