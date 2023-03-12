@@ -1,6 +1,6 @@
-# mochila-de-viagem
+# Curso da Alura - JavaScript na Web: armazenando dados no navegador.
 
-## Curso da Alura - JavaScript na Web: armazenando dados no navegador.
+## mochila-de-viagem:
 
 
   - Nesse projeto é possível adicionar itens, atualizá-los e remove-los usando JavaScript.
