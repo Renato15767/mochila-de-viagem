@@ -30,9 +30,11 @@ form.addEventListener("submit", (evento) => {
 
         atualizaElemento(itemAtual)
         //Irá receber o valor atualizado do item recebido na posição certa
-        itens[existe.id] = itemAtual
+        itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual
     }else{
-        itemAtual.id = itens.length
+        //             Se existir executa o 1º, se não o 2º (:)
+        itemAtual.id = itens[itens.length - 1] ? (itens[itens.length-1]).id + 1 : 0
+        //                                       1º)Pega e soma + 1 no id maior : 2º) Se torna 0
 
         criaElemento(itemAtual)
         //Coloca "itemAtual" dentro de "itens"
@@ -44,6 +46,8 @@ form.addEventListener("submit", (evento) => {
     nome.value = ""
     quantidade.value = ""
 })
+
+//Funções
 
 function criaElemento(item) {
     //objetivo -> <li class="item"><strong>7</strong>Camisas</li>
@@ -64,7 +68,7 @@ function criaElemento(item) {
     novoItem.innerHTML += item.nome
 
     //Adiciona um botão em cada <li>
-    novoItem.appendChild(botaoDeleta())
+    novoItem.appendChild(botaoDeleta(item, item.id))
 
     //Adiciona no HTML
     lista.appendChild(novoItem)
@@ -75,11 +79,26 @@ function atualizaElemento(item){
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
 }
 
-function botaoDeleta(){
+function botaoDeleta(item, id){
     const elementoBotao = document.createElement("button")
     elementoBotao.innerText = "X"
+    
+    elementoBotao.addEventListener("click", function() {
+        deletaElemento(this.parentNode, id)
+    })
 
     return elementoBotao
+}
+
+function deletaElemento(tag, id){
+    //Remove o <li>
+    tag.remove()
+    
+    //Remove um item do array
+    itens.splice(itens.findIndex(elemento => elemento.id === id), 1)
+
+    //Remove do LocalStorage
+    localStorage.setItem("itens", JSON.stringify(itens))
 }
 
 
